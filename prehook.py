@@ -52,6 +52,7 @@ def execute_prehook(sql_command_directory_path = './SQL_Commands'):
 def create_table_from_csv(db_session, csv_file_path, schema_name, table_name):
     try:
         df = pd.read_csv(csv_file_path)
+        df=df.replace({' ':'_','-':'_'})
         create_table_sql = return_create_statement_from_df(df, schema_name, table_name)
         execute_query(db_session, create_table_sql)
     except Exception as e:
